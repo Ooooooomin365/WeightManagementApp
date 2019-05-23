@@ -42,11 +42,13 @@
             // 
             // chart1
             // 
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisX.Interval = 20D;
-            chartArea1.AxisX.Maximum = 100D;
-            chartArea1.AxisX.Minimum = 1D;
-            chartArea1.AxisY.Maximum = 90D;
-            chartArea1.AxisY.Minimum = 55D;
+            chartArea1.AxisX.IsStartedFromZero = false;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.TitleAlignment = System.Drawing.StringAlignment.Near;
+            chartArea1.AxisY.Interval = 3D;
+            chartArea1.AxisY.IsStartedFromZero = false;
             chartArea1.CursorX.SelectionStart = 1D;
             chartArea1.CursorY.SelectionEnd = 90D;
             chartArea1.CursorY.SelectionStart = 50D;
@@ -60,6 +62,7 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "体重";
+            dataPoint1.IsEmpty = true;
             series1.Points.Add(dataPoint1);
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(399, 168);
