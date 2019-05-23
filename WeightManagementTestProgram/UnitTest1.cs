@@ -8,83 +8,12 @@ using WeightManagerApp;
 
 namespace WeightManagementTestProgram
 {
+    //Form1.cs テスト
     [TestClass]
     public class UnitTest1
     {
         [TestMethod]
-        public void CheckHeightMethod1()
-        {
-            var form1 = new Form1();
-            string Height = form1.YourHeight("178");
-
-            Assert.AreEqual("178", Height);
-        }
-
-        [TestMethod]
-        public void CheckHeightMethod2()
-        {
-            var form1 = new Form1();
-            string Height = form1.YourHeight("178cm");
-
-            Assert.AreEqual("178cm", Height);
-        }
-
-        [TestMethod]
-        public void CheckWeightMethod1()
-        {
-            var form1 = new Form1();
-            string Weight = form1.YourWeight("65kg");
-
-            Assert.AreEqual("65", Weight);
-        }
-
-        [TestMethod]
-        public void CheckWeightMethod2()
-        {
-            var form1 = new Form1();
-            string Weight = form1.YourWeight("65.5kg");
-
-            Assert.AreEqual("65.5", Weight);  
-        }
-
-        [TestMethod]
-        public void CheckBmiMethod1()
-        {
-            var form1 = new Form1();
-            double BMI = form1.YourBMI("178", "70");
-
-            Assert.AreEqual(22.09, BMI, 0.01);
-        }
-
-        [TestMethod]
-        public void CheckIdealWeightMethod1()
-        {
-            var form1 = new Form1();
-            double IdealWeight = form1.Calc_IdealWeight(178);
-
-            Assert.AreEqual(69.70, IdealWeight, 0.01);
-        }
-
-        [TestMethod]
-        public void CheckByIdealWeightMethod1()
-        {
-            var form1 = new Form1();
-            double ByIdealWeight = form1.Calc_ByIdealWeight(79.55, 64.177653);
-
-            Assert.AreEqual(15.37, ByIdealWeight, 0.01);
-        }
-
-        [TestMethod]
-        public void OutputByIdealWeightLabelCheckMethod1()
-        {
-            var form1 = new Form1();
-            string WeightLabel = form1.OutputIdealWeightLabel(70.0);
-
-            Assert.AreEqual("あなたの理想体重は" + 70.0.ToString("F2") + "kgです。", WeightLabel);
-        }
-
-        [TestMethod]
-        public void OutputLostWeightTextCheckMethod1()
+        public void OutputAllWeightTextCheckMethod1()
         {
             var form1 = new Form1();
             using (var ExcelData = new ClosedXML.Excel.XLWorkbook
@@ -94,8 +23,8 @@ namespace WeightManagementTestProgram
                 var ColumnOfWeight = worksheet.Columns("B");
 
                 foreach (var xLColumn in ColumnOfWeight)
-                {                 
-                    Assert.AreEqual("4", form1.OutputLostWeightText(xLColumn,"1"));
+                {
+                    Assert.AreEqual("1日目:5kg\r\n", form1.OutputAllWeightText(1, xLColumn));
                 }
             }
         }
@@ -116,8 +45,9 @@ namespace WeightManagementTestProgram
                 }
             }
         }
+
         [TestMethod]
-        public void OutputAllWeightTextCheckMethod1()
+        public void OutputLostWeightTextCheckMethod1()
         {
             var form1 = new Form1();
             using (var ExcelData = new ClosedXML.Excel.XLWorkbook
@@ -128,11 +58,93 @@ namespace WeightManagementTestProgram
 
                 foreach (var xLColumn in ColumnOfWeight)
                 {
-                    Assert.AreEqual("1日目:5kg\r\n", form1.OutputAllWeightText(1, xLColumn));
+                    Assert.AreEqual("4", form1.OutputLostWeightText(xLColumn, "1"));
                 }
             }
         }
 
+        [TestMethod]
+        public void OutputIdealWeightLabelCheckMethod1()
+        {
+            var form1 = new Form1();
+            string WeightLabel = form1.OutputIdealWeightLabel(70.0);
+
+            Assert.AreEqual("あなたの理想体重は" + 70.0.ToString("F2") + "kgです。", WeightLabel);
+        }
+
+        [TestMethod]
+        public void OutputByIdealWeightLabelChrckMethod1()
+        {
+            var form1 = new Form1();
+            string IdealWeight = form1.OutputByIdealWeightLabel(12.5);
+
+            Assert.AreEqual("あと" + 12.5.ToString("F2") + "kgです。", IdealWeight);
+        }
+
+        [TestMethod]
+        public void Calc_IdealWeightCheckMethod1()
+        {
+            var form1 = new Form1();
+            double IdealWeight = form1.Calc_IdealWeight(178);
+
+            Assert.AreEqual(69.70, IdealWeight, 0.01);
+        }
+
+        [TestMethod]
+        public void Calc_ByIdealWeightCheckMethod1()
+        {
+            var form1 = new Form1();
+            double ByIdealWeight = form1.Calc_ByIdealWeight(79.55, 64.177653);
+
+            Assert.AreEqual(15.37, ByIdealWeight, 0.01);
+        }
+
+        [TestMethod]
+        public void HeightCheckMethod1()
+        {
+            var form1 = new Form1();
+            string Height = form1.YourHeight("178");
+
+            Assert.AreEqual("178", Height);
+        }
+
+        [TestMethod]
+        public void HeightCheckMethod2()
+        {
+            var form1 = new Form1();
+            string Height = form1.YourHeight("178cm");
+
+            Assert.AreEqual("178cm", Height);
+        }
+
+        [TestMethod]
+        public void WeightCheckMethod1()
+        {
+            var form1 = new Form1();
+            string Weight = form1.YourWeight("65kg");
+
+            Assert.AreEqual("65", Weight);
+        }
+
+        [TestMethod]
+        public void WeightCheckMethod2()
+        {
+            var form1 = new Form1();
+            string Weight = form1.YourWeight("65.5kg");
+
+            Assert.AreEqual("65.5", Weight);  
+        }
+
+        [TestMethod]
+        public void BmiCheckMethod1()
+        {
+            var form1 = new Form1();
+            double BMI = form1.YourBMI("178", "70");
+
+            Assert.AreEqual(22.09, BMI, 0.01);
+        }
+
+        //Form2.cs テスト
         [TestMethod]
         public void Calc_HowLostWeightCheckMethod1()
         {

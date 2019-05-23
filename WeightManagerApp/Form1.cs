@@ -134,14 +134,14 @@ namespace WeightManagerApp
             return "あと" + ByIdealWeight.ToString("F2") + "kgです。";
         }
 
-        public double Calc_ByIdealWeight(double NowWeight, double IdealWeight)
-        {
-            return NowWeight - IdealWeight;
-        }
-
         public double Calc_IdealWeight(double Height)
         {
             return (Height / 100) * (Height / 100) * 22;
+        }
+
+        public double Calc_ByIdealWeight(double NowWeight, double IdealWeight)
+        {
+            return NowWeight - IdealWeight;
         }
 
 

@@ -1,2 +1,0 @@
-# WeightManagementApp
-For weight management
