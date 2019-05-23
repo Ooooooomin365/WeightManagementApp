@@ -59,6 +59,13 @@ namespace WeightManagerApp
             }
         }
 
+        /// <summary>
+        /// Excelから抽出した体重データを書き込む
+        /// </summary>
+        /// <param name="isTrue">体重一覧の最後列を探すための変数</param>
+        /// <param name="textBox">体重推移を書き込むテキストボックス</param>
+        /// <param name="xLColumn">Excelファイル</param>
+        /// <param name="i">ダイエット経過日数</param>
         public void OutputWeightText(bool isTrue, TextBox textBox, IXLColumn xLColumn, int i)
         {
             while (!isTrue)
@@ -93,7 +100,11 @@ namespace WeightManagerApp
                        - double.Parse(YourWeight(str))).ToString();
         }
    
- 
+        /// <summary>
+        /// 身長を入力したときの動作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void TextBox4_TextChanged(object sender, EventArgs e)
         {
             try
@@ -173,6 +184,12 @@ namespace WeightManagerApp
             return BMI;
         }
 
+        //「結果をテキストに入力」をクリック後、テキストに一部の数値を出力する。
+        private void OutputToText_Click(object sender, EventArgs e)
+        {
+            PutToTextFile();
+        }
+
         public void PutToTextFile()
         {
             var filePath = @"C:\Users\syu1d\Desktop\OutToTextFile.txt";
@@ -199,13 +216,6 @@ namespace WeightManagerApp
                 writer.WriteLine("");
                 writer.WriteLine("理想の体重まで" + ByIdealWeightlabel.Text);
             }
-
-        }
-
-
-        private void OutputToText_Click(object sender, EventArgs e)
-        {
-            PutToTextFile();
         }
     }
 }

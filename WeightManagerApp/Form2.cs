@@ -23,9 +23,17 @@ namespace WeightManagerApp
             InitializeComponent();
         }
 
+        //グラフをクリックしても特に変化はないようにする。
         private void Chart1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            DataForGraph();
+
+            LostWeightPace();
         }
 
         private void DataForGraph()
@@ -46,9 +54,16 @@ namespace WeightManagerApp
             }
         }
 
-       public void Make_Graph(bool isCount, int i, IXLColumn xLColumn, Chart chart)
+        /// <summary>
+        /// グラフの生成
+        /// </summary>
+        /// <param name="isTrue">体重一覧の最後列を探すための変数</param>
+        /// <param name="i">ダイエット経過日数</param>
+        /// <param name="xLColumn">Excelファイル</param>
+        /// <param name="chart">体重推移を表すグラフ</param>
+        public void Make_Graph(bool isTrue, int i, IXLColumn xLColumn, Chart chart)
         {
-            while (!isCount)
+            while (!isTrue)
             {
                 DataPoint dataPoint = new DataPoint();
                 dataPoint.SetValueXY(i, xLColumn.Cell(i + 2).GetValue<double>());
@@ -59,7 +74,7 @@ namespace WeightManagerApp
                 i++;
 
                 if (xLColumn.Cell(i + 2).GetValue<string>() == "")
-                    isCount = true;
+                    isTrue = true;
             }
         }
 
@@ -82,15 +97,22 @@ namespace WeightManagerApp
             }
         }
 
-        public void Calc_LostWeightPace(bool isCount, int i, Label label, IXLColumn xLColumn)
+        /// <summary>
+        /// 体重の減るペースを求める
+        /// </summary>
+        /// <param name="isTrue">体重一覧の最後列を探すための変数</param>
+        /// <param name="i">ダイエット経過日数</param>
+        /// <param name="label">体重の減るペースを表示するラベル</param>
+        /// <param name="xLColumn">Excelファイル</param>
+        public void Calc_LostWeightPace(bool isTrue, int i, Label label, IXLColumn xLColumn)
         {
-            while (!isCount)
+            while (!isTrue)
             {
                 if (xLColumn.Cell(i + 2).GetValue<string>() == "")
                 {
-                    isCount = true;
+                    isTrue = true;
                     var HowLost_Weight = Calc_HowLostWeight(xLColumn, i);
-                    var LostPace_Weight = HowLost_Weight / (i - 1);
+                    var LostPace_Weight = HowLost_Weight / (i - 1); //日数で割る
                     label.Text = OutputLostWeightPace(LostPace_Weight);
                 }
                 else
@@ -106,13 +128,6 @@ namespace WeightManagerApp
         public string OutputLostWeightPace(double LostPace)
         {
             return "あなたは1日に約" + LostPace.ToString("F2") + "kg痩せています。";
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            DataForGraph();
-            
-            LostWeightPace();
         }
 
         public void LooksLikeWho()
